@@ -173,14 +173,14 @@ class ForwardKinematics(Node):
         # TODO: Compute the final transformation. T_0_ee is the multiplication of the previous transformation matrices
         T_0_ee = T_0_1 @ T_1_2 @ T_2_3 @ T_3_ee
 
+        # print(T_0_ee.shape)
+
         # TODO: Extract the end-effector position. The end effector position is a 3x1 vector (not in homogenous coordinates)
         end_effector_position = np.array([
-            0,
-            0,
-            0
+            [0, 0, 0, 1]
         ]) @ T_0_ee
 
-        return end_effector_position
+        return end_effector_position[0][:3]
 
     def fk_front_right(self, theta1, theta2, theta3):
         rotation_x, rotation_y, rotation_z, translation = (

@@ -102,9 +102,12 @@ def generate_launch_description():
     #
     #   ros2 launch forward_kinematics.launch.py viser:=false      # no web viewer (use RViz2)
     #   ros2 launch forward_kinematics.launch.py viser_port:=8081  # different port
+    viewer_python = os.path.join(lab_dir, ".venv-viewer", "bin", "python3")
+    if not os.path.isfile(viewer_python):
+        viewer_python = "python3"
     viser_viewer = ExecuteProcess(
         cmd=[
-            "python3",
+            viewer_python,
             os.path.join(lab_dir, "forward_kinematics_viser.py"),
             "--port",
             LaunchConfiguration("viser_port"),
